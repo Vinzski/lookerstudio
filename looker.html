@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGU Looker Studio Tutorial</title>
+    <style>
+        :root {
+            --primary: #4285f4;
+            --sidebar-bg: #f8f9fa;
+            --text-main: #333;
+            --text-light: #666;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+            --border: #e1e4e8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            color: var(--text-main);
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        nav {
+            width: 280px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background: #e8f0fe;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content Styling */
+        main {
+            flex-grow: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; }
+        h2 { color: var(--primary); margin-top: 40px; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px;}
+        h3 { margin-top: 25px; color: #444; }
+        
+        .step-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            position: relative;
+            margin: 15px 0;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+        /* Lists */
+        ul.checklist { padding-left: 20px; }
+        ul.checklist li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2>Dashboard Manual</h2>
+        <ul>
+            <li><a href="#phase2">Phase 2: Connect & Basics</a></li>
+            <li><a href="#phase3">Phase 3: Interactive Filters</a></li>
+            <li><a href="#phase4">Phase 4: Calculated Fields</a></li>
+            <li><a href="#phase5">Phase 5: Blending Data</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>LGU Dashboard Tutorial</h1>
+            <p>A step-by-step guide to building the Service Request Dashboard in Looker Studio.</p>
+        </header>
+
+        <section id="phase2">
+            <h2>Phase 2: Connect to Looker Studio and Create Basic Charts</h2>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 3</span>Create New Report</h3>
+                <ul class="checklist">
+                    <li>Go to <strong>lookerstudio.google.com</strong></li>
+                    <li>Click "Create" → "Report"</li>
+                    <li>Click "Google Sheets" under "Connect to data"</li>
+                    <li>Find your <strong>"LGU_Service_Requests"</strong> sheet and click "Select"</li>
+                    <li>Click "Add" → "Add to report"</li>
+                </ul>
+                <p><em>You should now see a blank canvas with your data connected!</em></p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 4</span>Create First Scorecard</h3>
+                <p>On the right toolbar, click "Add a chart" and select the <strong>Scorecard</strong> icon (large single number).</p>
+                <ul class="checklist">
+                    <li><strong>Metric:</strong> Select "Record Count" (shows total service requests)</li>
+                    <li><strong>Style:</strong>
+                        <ul>
+                            <li>Change background color to light blue</li>
+                            <li>Increase font size to 28px</li>
+                            <li>Add "Scorecard title" as "Total Service Requests"</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 5</span>Create More Scorecards</h3>
+                <p>Copy and paste your first scorecard 3 times to create a row.</p>
+                <table border="0" cellspacing="10" width="100%">
+                    <tr>
+                        <td width="33%"><strong>Scorecard 2</strong><br>Metric: Avg Completion Days<br>Title: Avg Completion Days</td>
+                        <td width="33%"><strong>Scorecard 3</strong><br>Metric: Avg Satisfaction<br>Title: Avg Satisfaction</td>
+                        <td width="33%"><strong>Scorecard 4</strong><br>Metric: Total Cost (Sum)<br>Title: Total Cost</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 6 & 7</span>Create Charts</h3>
+                <p><strong>Bar Chart:</strong> Dimension = "Service Type", Metric = "Record Count"</p>
+                <p><strong>Pie Chart:</strong> Dimension = "Status", Metric = "Record Count"</p>
+            </div>
+        </section>
+
+        <section id="phase3">
+            <h2>Phase 3: Add Interactive Filters</h2>
+            
+            <div class="step-card">
+                <h3><span class="step-number">Step 8-10</span>Add Controls</h3>
+                <p>Click "Add a control" in the toolbar for each of the following:</p>
+                <ul class="checklist">
+                    <li><strong>Dropdown List:</strong> Field = "Department" (Width: 200px)</li>
+                    <li><strong>Date Range:</strong> Default = "Last 30 days" (Width: 250px)</li>
+                    <li><strong>Checkbox:</strong> Field = "Status" (Orientation: Horizontal)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="phase4">
+            <h2>Phase 4: Create Calculated Fields</h2>
+            <p>Go to Resource → Manage added data sources → Edit LGU_Service_Requests.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 11</span>Efficiency Score Formula</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
+                    <pre id="code1">CASE
+  WHEN `Completion Days` <= 2 THEN "Excellent"
+  WHEN `Completion Days` <= 4 THEN "Good" 
+  WHEN `Completion Days` <= 6 THEN "Average"
+  ELSE "Needs Improvement"
+END</pre>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 12</span>Priority Weight Formula</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('code2')">Copy</button>
+                    <pre id="code2">CASE
+  WHEN Priority = "High" THEN 3
+  WHEN Priority = "Medium" THEN 2
+  WHEN Priority = "Low" THEN 1
+  ELSE 0
+END</pre>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 13</span>Weighted Satisfaction Formula</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('code3')">Copy</button>
+                    <pre id="code3">Citizen Satisfaction * Priority Weight</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="phase5">
+            <h2>Phase 5: Connect and Blend Budget Data</h2>
+            
+            <div class="step-card">
+                <h3><span class="step-number">Step 16</span>Create Data Blend</h3>
+                <p><strong>Join Key:</strong> "Department" (from both tables)</p>
+                <hr>
+                <div style="display:flex; gap:20px;">
+                    <div style="flex:1">
+                        <strong>Left Table (Requests)</strong>
+                        <ul>
+                            <li>Record Count</li>
+                            <li>Average Completion Days</li>
+                        </ul>
+                    </div>
+                    <div style="flex:1">
+                        <strong>Right Table (Budget)</strong>
+                        <ul>
+                            <li>Budget Allocated</li>
+                            <li>Budget Spent</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function copyCode(id) {
+            const code = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Formula copied to clipboard!");
+            });
+        }
+    </script>
+</body>
+</html>
