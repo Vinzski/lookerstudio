@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LGU Looker Studio Tutorial</title>
+    <title>Looker Studio Manual</title>
     <style>
         :root {
             --primary: #4285f4;
@@ -143,10 +143,10 @@
     <nav>
         <h2>Dashboard Manual</h2>
         <ul>
-            <li><a href="#phase2">Phase 2: Connect & Basics</a></li>
-            <li><a href="#phase3">Phase 3: Interactive Filters</a></li>
-            <li><a href="#phase4">Phase 4: Calculated Fields</a></li>
-            <li><a href="#phase5">Phase 5: Blending Data</a></li>
+            <li><a href="#phase1">Phase 1: Connect & Basics</a></li>
+            <li><a href="#phase2">Phase 2: Interactive Filters</a></li>
+            <li><a href="#phase3">Phase 3: Calculated Fields</a></li>
+            <li><a href="#phase4">Phase 4: Blending Data</a></li>
         </ul>
     </nav>
 
@@ -156,11 +156,11 @@
             <p>A step-by-step guide to building the Service Request Dashboard in Looker Studio.</p>
         </header>
 
-        <section id="phase2">
-            <h2>Phase 2: Connect to Looker Studio and Create Basic Charts</h2>
+        <section id="phase1">
+            <h2>Phase 1: Connect to Looker Studio and Create Basic Charts</h2>
 
             <div class="step-card">
-                <h3><span class="step-number">Step 3</span>Create New Report</h3>
+                <h3><span class="step-number">Step 1</span>Create New Looker Studio Report</h3>
                 <ul class="checklist">
                     <li>Go to <strong>lookerstudio.google.com</strong></li>
                     <li>Click "Create" → "Report"</li>
@@ -172,59 +172,142 @@
             </div>
 
             <div class="step-card">
-                <h3><span class="step-number">Step 4</span>Create First Scorecard</h3>
-                <p>On the right toolbar, click "Add a chart" and select the <strong>Scorecard</strong> icon (large single number).</p>
+                <h3><span class="step-number">Step 2</span>Create Your First Scorecard</h3>
+                <p>On the right toolbar, click "Add a chart"</p>
                 <ul class="checklist">
-                    <li><strong>Metric:</strong> Select "Record Count" (shows total service requests)</li>
-                    <li><strong>Style:</strong>
+                    <li>Click the <strong>"Scorecard"</strong> icon (looks like a single large number)</li>
+                    <li>Click anywhere on the canvas to place it</li>
+                    <li>In the right panel under "Metric", click "Add metric"</li>
+                    <li>Select <strong>"Record Count"</strong> - this shows total service requests</li>
+                </ul>
+                <p><strong>Let's style it:</strong></p>
+                <ul class="checklist">
+                    <li>In the right panel, go to "STYLE" tab</li>
+                    <li>Change background color to light blue</li>
+                    <li>Increase font size to 28px</li>
+                    <li>Add "Scorecard title" as <strong>"Total Service Requests"</strong></li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 3</span>Create More Scorecards</h3>
+                <p>Right-click your scorecard → "Copy"</p>
+                <p>Right-click → "Paste" (do this 3 times)</p>
+                <p>Arrange them in a row at the top. Update each one:</p>
+                <hr>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <div style="flex:1; min-width:200px; background:#f9f9f9; padding:10px;">
+                        <strong>Scorecard 2</strong><br>
+                        Metric: Click "Add metric" → "Completion Days" → "Average"<br>
+                        Title: "Avg Completion Days"
+                    </div>
+                    <div style="flex:1; min-width:200px; background:#f9f9f9; padding:10px;">
+                        <strong>Scorecard 3</strong><br>
+                        Metric: "Citizen Satisfaction" → "Average"<br>
+                        Title: "Avg Satisfaction"
+                    </div>
+                    <div style="flex:1; min-width:200px; background:#f9f9f9; padding:10px;">
+                        <strong>Scorecard 4</strong><br>
+                        Metric: "Cost Incurred" → "Sum"<br>
+                        Title: "Total Cost"
+                    </div>
+                </div>
+                <p style="margin-top:10px"><em>You now have 4 key metrics at the top!</em></p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 4</span>Create a Bar Chart - Service Types</h3>
+                <ul class="checklist">
+                    <li>Click "Add a chart" → "Bar chart"</li>
+                    <li>Click below your scorecards to place it</li>
+                    <li>In right panel under "Dimension": Click "Add dimension" → <strong>"Service Type"</strong></li>
+                    <li>Under "Metric": Ensure <strong>"Record Count"</strong> is selected</li>
+                    <li>In "STYLE" tab:
                         <ul>
-                            <li>Change background color to light blue</li>
-                            <li>Increase font size to 28px</li>
-                            <li>Add "Scorecard title" as "Total Service Requests"</li>
+                            <li>Chart title: "Service Requests by Type"</li>
+                            <li>Show data labels: ON</li>
+                            <li>Change colors if desired</li>
                         </ul>
                     </li>
                 </ul>
             </div>
 
             <div class="step-card">
-                <h3><span class="step-number">Step 5</span>Create More Scorecards</h3>
-                <p>Copy and paste your first scorecard 3 times to create a row.</p>
-                <table border="0" cellspacing="10" width="100%">
-                    <tr>
-                        <td width="33%"><strong>Scorecard 2</strong><br>Metric: Avg Completion Days<br>Title: Avg Completion Days</td>
-                        <td width="33%"><strong>Scorecard 3</strong><br>Metric: Avg Satisfaction<br>Title: Avg Satisfaction</td>
-                        <td width="33%"><strong>Scorecard 4</strong><br>Metric: Total Cost (Sum)<br>Title: Total Cost</td>
-                    </tr>
-                </table>
+                <h3><span class="step-number">Step 5</span>Create a Pie Chart - Status Distribution</h3>
+                <ul class="checklist">
+                    <li>Click "Add a chart" → "Pie chart"</li>
+                    <li>Place it next to the bar chart</li>
+                    <li>Dimension: <strong>"Status"</strong></li>
+                    <li>Metric: <strong>"Record Count"</strong></li>
+                    <li>Style:
+                        <ul>
+                            <li>Title: "Request Status Distribution"</li>
+                            <li>Donut: 40%</li>
+                            <li>Show data labels: ON</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><em>Your dashboard should now have basic charts!</em></p>
+            </div>
+        </section>
+
+        <section id="phase2">
+            <h2>Phase 2: Add Interactive Filters</h2>
+            
+            <div class="step-card">
+                <h3><span class="step-number">Step 6</span>Add Department Dropdown Filter</h3>
+                <ul class="checklist">
+                    <li>Click "Add a control" → "Dropdown list"</li>
+                    <li>Click at the very top of your dashboard</li>
+                    <li>In right panel under "Control field": Select <strong>"Department"</strong></li>
+                    <li>Under "STYLE":
+                        <ul>
+                            <li>Label: "Select Department"</li>
+                            <li>Width: 200px</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
             <div class="step-card">
-                <h3><span class="step-number">Step 6 & 7</span>Create Charts</h3>
-                <p><strong>Bar Chart:</strong> Dimension = "Service Type", Metric = "Record Count"</p>
-                <p><strong>Pie Chart:</strong> Dimension = "Status", Metric = "Record Count"</p>
+                <h3><span class="step-number">Step 7</span>Add Date Range Filter</h3>
+                <ul class="checklist">
+                    <li>Click "Add a control" → "Date range"</li>
+                    <li>Place it next to the department filter</li>
+                    <li>Control field: "Date"</li>
+                    <li>Default date range: <strong>"Last 30 days"</strong></li>
+                    <li>Style: Width 250px</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 8</span>Add Checkbox Filter for Status</h3>
+                <ul class="checklist">
+                    <li>Click "Add a control" → "Checkbox"</li>
+                    <li>Place it below the other filters</li>
+                    <li>Control field: <strong>"Status"</strong></li>
+                    <li>Default selection: All checked</li>
+                    <li>Style:
+                        <ul>
+                            <li>Label: "Filter by Status"</li>
+                            <li>Orientation: Horizontal</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><em>Test your filters! Click different departments and dates - watch the charts update.</em></p>
             </div>
         </section>
 
         <section id="phase3">
-            <h2>Phase 3: Add Interactive Filters</h2>
+            <h2>Phase 3: Create Calculated Fields</h2>
             
             <div class="step-card">
-                <h3><span class="step-number">Step 8-10</span>Add Controls</h3>
-                <p>Click "Add a control" in the toolbar for each of the following:</p>
-                <ul class="checklist">
-                    <li><strong>Dropdown List:</strong> Field = "Department" (Width: 200px)</li>
-                    <li><strong>Date Range:</strong> Default = "Last 30 days" (Width: 250px)</li>
-                    <li><strong>Checkbox:</strong> Field = "Status" (Orientation: Horizontal)</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="phase4">
-            <h2>Phase 4: Create Calculated Fields</h2>
-            <p>Go to Resource → Manage added data sources → Edit LGU_Service_Requests.</p>
-
-            <div class="step-card">
-                <h3><span class="step-number">Step 11</span>Efficiency Score Formula</h3>
+                <h3><span class="step-number">Step 9</span>Create Efficiency Score Field</h3>
+                <p>In the right panel, click "Resource" → "Manage added data sources"</p>
+                <p>Find "LGU_Service_Requests" and click "EDIT"</p>
+                <p>Click "ADD A FIELD" in top right</p>
+                <p>Field name: <strong>"Efficiency Score"</strong></p>
+                <p>Formula: Copy and paste this EXACTLY:</p>
                 <div class="code-container">
                     <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
                     <pre id="code1">CASE
@@ -234,10 +317,13 @@
   ELSE "Needs Improvement"
 END</pre>
                 </div>
+                <p>Click "SAVE"</p>
             </div>
 
             <div class="step-card">
-                <h3><span class="step-number">Step 12</span>Priority Weight Formula</h3>
+                <h3><span class="step-number">Step 10</span>Create Priority Weight Field</h3>
+                <p>Click "ADD A FIELD" again</p>
+                <p>Name: <strong>"Priority Weight"</strong></p>
                 <div class="code-container">
                     <button class="copy-btn" onclick="copyCode('code2')">Copy</button>
                     <pre id="code2">CASE
@@ -247,40 +333,87 @@ END</pre>
   ELSE 0
 END</pre>
                 </div>
+                <p>Click "SAVE"</p>
             </div>
 
             <div class="step-card">
-                <h3><span class="step-number">Step 13</span>Weighted Satisfaction Formula</h3>
+                <h3><span class="step-number">Step 11</span>Create Weighted Satisfaction Field</h3>
+                <p>"ADD A FIELD"</p>
+                <p>Name: <strong>"Weighted Satisfaction"</strong></p>
                 <div class="code-container">
                     <button class="copy-btn" onclick="copyCode('code3')">Copy</button>
                     <pre id="code3">Citizen Satisfaction * Priority Weight</pre>
                 </div>
+                <p>Click "SAVE"</p>
+                <p><em>Close the data source editor - you'll see these new fields in your field list!</em></p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 12</span>Use Your Calculated Fields</h3>
+                <p>Create a new bar chart</p>
+                <ul class="checklist">
+                    <li>Dimension: "Efficiency Score"</li>
+                    <li>Metric: "Record Count"</li>
+                    <li>Title: "Service Efficiency Distribution"</li>
+                </ul>
             </div>
         </section>
 
-        <section id="phase5">
-            <h2>Phase 5: Connect and Blend Budget Data</h2>
+        <section id="phase4">
+            <h2>Phase 4: Connect and Blend Budget Data</h2>
             
             <div class="step-card">
-                <h3><span class="step-number">Step 16</span>Create Data Blend</h3>
-                <p><strong>Join Key:</strong> "Department" (from both tables)</p>
-                <hr>
+                <h3><span class="step-number">Step 13</span>Add Budget Data Source</h3>
+                <ul class="checklist">
+                    <li>Click "Resource" → "Manage blended data"</li>
+                    <li>Click "Add a data source"</li>
+                    <li>Select "Google Sheets"</li>
+                    <li>Choose your <strong>"LGU_Budget"</strong> sheet</li>
+                    <li>Click "ADD" → "ADD TO REPORT"</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 14</span>Create Data Blend</h3>
+                <p>In "Manage blended data", click "Create Blend"</p>
                 <div style="display:flex; gap:20px;">
                     <div style="flex:1">
-                        <strong>Left Table (Requests)</strong>
-                        <ul>
-                            <li>Record Count</li>
-                            <li>Average Completion Days</li>
-                        </ul>
+                        <strong>Left Table</strong><br>
+                        Select "LGU_Service_Requests"<br>
+                        <em>Metrics:</em> Record Count, Average Completion Days
                     </div>
                     <div style="flex:1">
-                        <strong>Right Table (Budget)</strong>
-                        <ul>
-                            <li>Budget Allocated</li>
-                            <li>Budget Spent</li>
-                        </ul>
+                        <strong>Right Table</strong><br>
+                        Select "LGU_Budget"<br>
+                        <em>Metrics:</em> Budget Allocated, Budget Spent
                     </div>
                 </div>
+                <p><strong>Join keys:</strong> Click "Add key" → Select "Department" from both tables</p>
+                <p>Name this blend: <strong>"Department Performance"</strong></p>
+                <p>Click "SAVE"</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">Step 15</span>Create Blended Chart</h3>
+                <ul class="checklist">
+                    <li>Click "Add a chart" → "Combo chart"</li>
+                    <li>Place it below your existing charts</li>
+                    <li>Data source: Select "Department Performance" (your new blend)</li>
+                    <li>Dimension: "Department"</li>
+                    <li>Metrics:
+                        <ul>
+                            <li>Budget Allocated (Bar)</li>
+                            <li>Budget Spent (Bar)</li>
+                            <li>Record Count (Line, secondary axis)</li>
+                        </ul>
+                    </li>
+                    <li>Style:
+                        <ul>
+                            <li>Title: "Budget vs Service Volume by Department"</li>
+                            <li>Dual axis: ON</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </section>
 
