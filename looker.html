@@ -1,431 +1,587 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Looker Studio Manual</title>
     <style>
-        :root {
-            --primary: #4285f4;
-            --sidebar-bg: #f8f9fa;
-            --text-main: #333;
-            --text-light: #666;
-            --code-bg: #2d2d2d;
-            --code-text: #f8f8f2;
-            --border: #e1e4e8;
-        }
+      :root {
+        --primary: #4285f4;
+        --sidebar-bg: #f8f9fa;
+        --text-main: #333;
+        --text-light: #666;
+        --code-bg: #2d2d2d;
+        --code-text: #f8f8f2;
+        --border: #e1e4e8;
+      }
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            color: var(--text-main);
-            line-height: 1.6;
-            height: 100vh;
-            overflow: hidden;
-        }
+      body {
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        color: var(--text-main);
+        line-height: 1.6;
+        height: 100vh;
+        overflow: hidden;
+      }
 
-        /* Sidebar Styling */
-        nav {
-            width: 280px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--border);
-            padding: 20px;
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
+      /* Sidebar Styling */
+      nav {
+        width: 280px;
+        background: var(--sidebar-bg);
+        border-right: 1px solid var(--border);
+        padding: 20px;
+        overflow-y: auto;
+        flex-shrink: 0;
+      }
 
-        nav h2 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
+      nav h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: var(--primary);
+      }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
 
-        nav li {
-            margin-bottom: 10px;
-        }
+      nav li {
+        margin-bottom: 10px;
+      }
 
-        nav a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-size: 0.95rem;
-            display: block;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
+      nav a {
+        text-decoration: none;
+        color: var(--text-light);
+        font-size: 0.95rem;
+        display: block;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: background 0.2s;
+      }
 
-        nav a:hover, nav a.active {
-            background: #e8f0fe;
-            color: var(--primary);
-            font-weight: 600;
-        }
+      nav a:hover,
+      nav a.active {
+        background: #e8f0fe;
+        color: var(--primary);
+        font-weight: 600;
+      }
 
-        /* Main Content Styling */
-        main {
-            flex-grow: 1;
-            padding: 40px 60px;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-        }
+      /* Main Content Styling */
+      main {
+        flex-grow: 1;
+        padding: 40px 60px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+      }
 
-        header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-        }
+      header {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 20px;
+        margin-bottom: 40px;
+      }
 
-        h1 { margin: 0; font-size: 2.5rem; }
-        h2 { color: var(--primary); margin-top: 40px; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px;}
-        h3 { margin-top: 25px; color: #444; }
-        
-        .step-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
+      h1 {
+        margin: 0;
+        font-size: 2.5rem;
+      }
+      h2 {
+        color: var(--primary);
+        margin-top: 40px;
+        border-bottom: 2px solid #f1f1f1;
+        padding-bottom: 10px;
+      }
+      h3 {
+        margin-top: 25px;
+        color: #444;
+      }
 
-        .step-number {
-            background: var(--primary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-right: 10px;
-        }
+      .step-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
 
-        /* Code Blocks */
-        .code-container {
-            position: relative;
-            margin: 15px 0;
-        }
+      .step-number {
+        background: var(--primary);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-right: 10px;
+      }
 
-        pre {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 15px;
-            border-radius: 6px;
-            overflow-x: auto;
-            font-family: 'Consolas', 'Monaco', monospace;
-        }
+      /* Code Blocks */
+      .code-container {
+        position: relative;
+        margin: 15px 0;
+      }
 
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+      pre {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 15px;
+        border-radius: 6px;
+        overflow-x: auto;
+        font-family: "Consolas", "Monaco", monospace;
+      }
 
-        .copy-btn:hover { background: rgba(255,255,255,0.2); }
+      .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        border-radius: 4px;
+      }
 
-        /* Lists */
-        ul.checklist { padding-left: 20px; }
-        ul.checklist li { margin-bottom: 5px; }
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Links */
+      .data-link {
+        display: inline-block;
+        background: #e8f0fe;
+        color: var(--primary);
+        padding: 10px 15px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        border: 1px solid var(--primary);
+        margin-top: 10px;
+      }
+      .data-link:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Lists */
+      ul.checklist {
+        padding-left: 20px;
+      }
+      ul.checklist li {
+        margin-bottom: 5px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <nav>
-        <h2>Dashboard Manual</h2>
-        <ul>
-            <li><a href="#phase1">Phase 1: Connect & Basics</a></li>
-            <li><a href="#phase2">Phase 2: Interactive Filters</a></li>
-            <li><a href="#phase3">Phase 3: Calculated Fields</a></li>
-            <li><a href="#phase4">Phase 4: Blending Data</a></li>
-        </ul>
+      <h2>Dashboard Manual</h2>
+      <ul>
+        <li><a href="#phase1">Phase 1: Connect & Basics</a></li>
+        <li><a href="#phase2">Phase 2: Interactive Filters</a></li>
+        <li><a href="#phase3">Phase 3: Calculated Fields</a></li>
+        <li><a href="#phase4">Phase 4: Blending Data</a></li>
+      </ul>
     </nav>
 
     <main>
-        <header>
-            <h1>LGU Dashboard Tutorial</h1>
-            <p>A step-by-step guide to building the Service Request Dashboard in Looker Studio.</p>
-        </header>
+      <header>
+        <h1>LGU Dashboard Tutorial</h1>
+        <p>
+          A step-by-step guide to building the Service Request Dashboard in
+          Looker Studio.
+        </p>
+      </header>
 
-        <section id="phase1">
-            <h2>Phase 1: Connect to Looker Studio and Create Basic Charts</h2>
+      <section id="phase1">
+        <h2>Phase 1: Connect to Looker Studio and Create Basic Charts</h2>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 1</span>Create New Looker Studio Report</h3>
-                <ul class="checklist">
-                    <li>Go to <strong>lookerstudio.google.com</strong></li>
-                    <li>Click "Create" → "Report"</li>
-                    <li>Click "Google Sheets" under "Connect to data"</li>
-                    <li>Find your <strong>"LGU_Service_Requests"</strong> sheet and click "Select"</li>
-                    <li>Click "Add" → "Add to report"</li>
-                </ul>
-                <p><em>You should now see a blank canvas with your data connected!</em></p>
+        <div class="step-card">
+          <h3><span class="step-number">Step 1</span>Access Data Source</h3>
+          <p>
+            Before starting, please open the Google Sheet containing the
+            dataset. You will need this file to connect your data.
+          </p>
+          <a
+            href="https://docs.google.com/spreadsheets/d/1Z2nn2amLqGnx4roEihNJ4PNtK1BPHyhrTwU_XFjTAts/edit?gid=147753818#gid=147753818"
+            target="_blank"
+            class="data-link"
+          >
+            Open LGU_Service_Requests Data Sheet ↗
+          </a>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 10px">
+            <em>Tip: Keep this tab open or make a copy to your own Drive.</em>
+          </p>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 2</span>Create New Looker Studio
+            Report
+          </h3>
+          <ul class="checklist">
+            <li>Go to <strong>lookerstudio.google.com</strong></li>
+            <li>Click "Create" → "Report"</li>
+            <li>Click "Google Sheets" under "Connect to data"</li>
+            <li>
+              Find the <strong>"LGU_Service_Requests"</strong> sheet you just
+              opened and click "Select"
+            </li>
+            <li>Click "Add" → "Add to report"</li>
+            <li>
+              <em
+                >(Note: You will also need to do the same for the
+                <strong>"LGU_Budget"</strong> sheet later).</em
+              >
+            </li>
+          </ul>
+          <p>
+            <em>You should now see a blank canvas with your data connected!</em>
+          </p>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 3</span>Create Your First Scorecard
+          </h3>
+          <p>On the right toolbar, click "Add a chart"</p>
+          <ul class="checklist">
+            <li>
+              Click the <strong>"Scorecard"</strong> icon (looks like a single
+              large number)
+            </li>
+            <li>Click anywhere on the canvas to place it</li>
+            <li>In the right panel under "Metric", click "Add metric"</li>
+            <li>
+              Select <strong>"Record Count"</strong> - this shows total service
+              requests
+            </li>
+          </ul>
+          <p><strong>Let's style it:</strong></p>
+          <ul class="checklist">
+            <li>In the right panel, go to "STYLE" tab</li>
+            <li>Change background color to light blue</li>
+            <li>Increase font size to 28px</li>
+            <li>
+              Add "Scorecard title" as <strong>"Total Service Requests"</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div class="step-card">
+          <h3><span class="step-number">Step 4</span>Create More Scorecards</h3>
+          <p>Right-click your scorecard → "Copy"</p>
+          <p>Right-click → "Paste" (do this 3 times)</p>
+          <p>Arrange them in a row at the top. Update each one:</p>
+          <hr />
+          <div style="display: flex; gap: 10px; flex-wrap: wrap">
+            <div
+              style="
+                flex: 1;
+                min-width: 200px;
+                background: #f9f9f9;
+                padding: 10px;
+              "
+            >
+              <strong>Scorecard 2</strong><br />
+              Metric: Click "Add metric" → "Completion Days" → "Average"<br />
+              Title: "Avg Completion Days"
             </div>
-
-            <div class="step-card">
-                <h3><span class="step-number">Step 2</span>Create Your First Scorecard</h3>
-                <p>On the right toolbar, click "Add a chart"</p>
-                <ul class="checklist">
-                    <li>Click the <strong>"Scorecard"</strong> icon (looks like a single large number)</li>
-                    <li>Click anywhere on the canvas to place it</li>
-                    <li>In the right panel under "Metric", click "Add metric"</li>
-                    <li>Select <strong>"Record Count"</strong> - this shows total service requests</li>
-                </ul>
-                <p><strong>Let's style it:</strong></p>
-                <ul class="checklist">
-                    <li>In the right panel, go to "STYLE" tab</li>
-                    <li>Change background color to light blue</li>
-                    <li>Increase font size to 28px</li>
-                    <li>Add "Scorecard title" as <strong>"Total Service Requests"</strong></li>
-                </ul>
+            <div
+              style="
+                flex: 1;
+                min-width: 200px;
+                background: #f9f9f9;
+                padding: 10px;
+              "
+            >
+              <strong>Scorecard 3</strong><br />
+              Metric: "Citizen Satisfaction" → "Average"<br />
+              Title: "Avg Satisfaction"
             </div>
-
-            <div class="step-card">
-                <h3><span class="step-number">Step 3</span>Create More Scorecards</h3>
-                <p>Right-click your scorecard → "Copy"</p>
-                <p>Right-click → "Paste" (do this 3 times)</p>
-                <p>Arrange them in a row at the top. Update each one:</p>
-                <hr>
-                <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <div style="flex:1; min-width:200px; background:#f9f9f9; padding:10px;">
-                        <strong>Scorecard 2</strong><br>
-                        Metric: Click "Add metric" → "Completion Days" → "Average"<br>
-                        Title: "Avg Completion Days"
-                    </div>
-                    <div style="flex:1; min-width:200px; background:#f9f9f9; padding:10px;">
-                        <strong>Scorecard 3</strong><br>
-                        Metric: "Citizen Satisfaction" → "Average"<br>
-                        Title: "Avg Satisfaction"
-                    </div>
-                    <div style="flex:1; min-width:200px; background:#f9f9f9; padding:10px;">
-                        <strong>Scorecard 4</strong><br>
-                        Metric: "Cost Incurred" → "Sum"<br>
-                        Title: "Total Cost"
-                    </div>
-                </div>
-                <p style="margin-top:10px"><em>You now have 4 key metrics at the top!</em></p>
+            <div
+              style="
+                flex: 1;
+                min-width: 200px;
+                background: #f9f9f9;
+                padding: 10px;
+              "
+            >
+              <strong>Scorecard 4</strong><br />
+              Metric: "Cost Incurred" → "Sum"<br />
+              Title: "Total Cost"
             </div>
+          </div>
+          <p style="margin-top: 10px">
+            <em>You now have 4 key metrics at the top!</em>
+          </p>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 4</span>Create a Bar Chart - Service Types</h3>
-                <ul class="checklist">
-                    <li>Click "Add a chart" → "Bar chart"</li>
-                    <li>Click below your scorecards to place it</li>
-                    <li>In right panel under "Dimension": Click "Add dimension" → <strong>"Service Type"</strong></li>
-                    <li>Under "Metric": Ensure <strong>"Record Count"</strong> is selected</li>
-                    <li>In "STYLE" tab:
-                        <ul>
-                            <li>Chart title: "Service Requests by Type"</li>
-                            <li>Show data labels: ON</li>
-                            <li>Change colors if desired</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 5</span>Create a Bar Chart - Service
+            Types
+          </h3>
+          <ul class="checklist">
+            <li>Click "Add a chart" → "Bar chart"</li>
+            <li>Click below your scorecards to place it</li>
+            <li>
+              In right panel under "Dimension": Click "Add dimension" →
+              <strong>"Service Type"</strong>
+            </li>
+            <li>
+              Under "Metric": Ensure <strong>"Record Count"</strong> is selected
+            </li>
+            <li>
+              In "STYLE" tab:
+              <ul>
+                <li>Chart title: "Service Requests by Type"</li>
+                <li>Change colors if desired</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 5</span>Create a Pie Chart - Status Distribution</h3>
-                <ul class="checklist">
-                    <li>Click "Add a chart" → "Pie chart"</li>
-                    <li>Place it next to the bar chart</li>
-                    <li>Dimension: <strong>"Status"</strong></li>
-                    <li>Metric: <strong>"Record Count"</strong></li>
-                    <li>Style:
-                        <ul>
-                            <li>Title: "Request Status Distribution"</li>
-                            <li>Donut: 40%</li>
-                            <li>Show data labels: ON</li>
-                        </ul>
-                    </li>
-                </ul>
-                <p><em>Your dashboard should now have basic charts!</em></p>
-            </div>
-        </section>
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 6</span>Create a Pie Chart - Status
+            Distribution
+          </h3>
+          <ul class="checklist">
+            <li>Click "Add a chart" → "Pie chart"</li>
+            <li>Place it next to the bar chart</li>
+            <li>Dimension: <strong>"Status"</strong></li>
+            <li>Metric: <strong>"Record Count"</strong></li>
+            <li>
+              Style:
+              <ul>
+                <li>Title: "Request Status Distribution"</li>
+              </ul>
+            </li>
+          </ul>
+          <p><em>Your dashboard should now have basic charts!</em></p>
+        </div>
+      </section>
 
-        <section id="phase2">
-            <h2>Phase 2: Add Interactive Filters</h2>
-            
-            <div class="step-card">
-                <h3><span class="step-number">Step 6</span>Add Department Dropdown Filter</h3>
-                <ul class="checklist">
-                    <li>Click "Add a control" → "Dropdown list"</li>
-                    <li>Click at the very top of your dashboard</li>
-                    <li>In right panel under "Control field": Select <strong>"Department"</strong></li>
-                    <li>Under "STYLE":
-                        <ul>
-                            <li>Label: "Select Department"</li>
-                            <li>Width: 200px</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+      <section id="phase2">
+        <h2>Phase 2: Add Interactive Filters</h2>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 7</span>Add Date Range Filter</h3>
-                <ul class="checklist">
-                    <li>Click "Add a control" → "Date range"</li>
-                    <li>Place it next to the department filter</li>
-                    <li>Control field: "Date"</li>
-                    <li>Default date range: <strong>"Last 30 days"</strong></li>
-                    <li>Style: Width 250px</li>
-                </ul>
-            </div>
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 7</span>Add Department Dropdown
+            Filter
+          </h3>
+          <ul class="checklist">
+            <li>Click "Add a control" → "Dropdown list"</li>
+            <li>Click at the very top of your dashboard</li>
+            <li>
+              In right panel under "Control field": Select
+              <strong>"Department"</strong>
+            </li>
+            <li>
+              Under "STYLE":
+              <ul>
+                <li>Label: "Select Department"</li>
+                <li>Width: 200px</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 8</span>Add Checkbox Filter for Status</h3>
-                <ul class="checklist">
-                    <li>Click "Add a control" → "Checkbox"</li>
-                    <li>Place it below the other filters</li>
-                    <li>Control field: <strong>"Status"</strong></li>
-                    <li>Default selection: All checked</li>
-                    <li>Style:
-                        <ul>
-                            <li>Label: "Filter by Status"</li>
-                            <li>Orientation: Horizontal</li>
-                        </ul>
-                    </li>
-                </ul>
-                <p><em>Test your filters! Click different departments and dates - watch the charts update.</em></p>
-            </div>
-        </section>
+        <div class="step-card">
+          <h3><span class="step-number">Step 8</span>Add Date Range Filter</h3>
+          <ul class="checklist">
+            <li>Click "Add a control" → "Date range"</li>
+            <li>Place it next to the department filter</li>
+            <li>Control field: "Date"</li>
+            <li>Default date range: <strong>"Last 30 days"</strong></li>
+            <li>Style: Width 250px</li>
+          </ul>
+        </div>
 
-        <section id="phase3">
-            <h2>Phase 3: Create Calculated Fields</h2>
-            
-            <div class="step-card">
-                <h3><span class="step-number">Step 9</span>Create Efficiency Score Field</h3>
-                <p>In the right panel, click "Resource" → "Manage added data sources"</p>
-                <p>Find "LGU_Service_Requests" and click "EDIT"</p>
-                <p>Click "ADD A FIELD" in top right</p>
-                <p>Field name: <strong>"Efficiency Score"</strong></p>
-                <p>Formula: Copy and paste this EXACTLY:</p>
-                <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
-                    <pre id="code1">CASE
-  WHEN `Completion Days` <= 2 THEN "Excellent"
-  WHEN `Completion Days` <= 4 THEN "Good" 
-  WHEN `Completion Days` <= 6 THEN "Average"
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 9</span>Add Checkbox Filter for
+            Status
+          </h3>
+          <ul class="checklist">
+            <li>Click "Add a control" → "Checkbox"</li>
+            <li>Place it below the other filters</li>
+            <li>Control field: <strong>"Status"</strong></li>
+            <li>Default selection: All checked</li>
+            <li>
+              Style:
+              <ul>
+                <li>Label: "Filter by Status"</li>
+                <li>Orientation: Horizontal</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            <em
+              >Test your filters! Click different departments and dates - watch
+              the charts update.</em
+            >
+          </p>
+        </div>
+      </section>
+
+      <section id="phase3">
+        <h2>Phase 3: Create Calculated Fields</h2>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 10</span>Create Efficiency Score
+            Field
+          </h3>
+          <p>
+            In the right panel, click "Resource" → "Manage added data sources"
+          </p>
+          <p>Find "LGU_Service_Requests" and click "EDIT"</p>
+          <p>Click "ADD A FIELD" in top right</p>
+          <p>Field name: <strong>"Efficiency Score"</strong></p>
+          <p>Formula: Copy and paste this EXACTLY:</p>
+          <div class="code-container">
+            <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
+            <pre id="code1">
+CASE
+  WHEN Completion Days <= 2 THEN "Excellent"
+  WHEN Completion Days <= 4 THEN "Good" 
+  WHEN Completion Days <= 6 THEN "Average"
   ELSE "Needs Improvement"
-END</pre>
-                </div>
-                <p>Click "SAVE"</p>
-            </div>
+END</pre
+            >
+          </div>
+          <p>Click "SAVE"</p>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 10</span>Create Priority Weight Field</h3>
-                <p>Click "ADD A FIELD" again</p>
-                <p>Name: <strong>"Priority Weight"</strong></p>
-                <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode('code2')">Copy</button>
-                    <pre id="code2">CASE
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 11</span>Create Priority Weight Field
+          </h3>
+          <p>Click "ADD A FIELD" again</p>
+          <p>Name: <strong>"Priority Weight"</strong></p>
+          <div class="code-container">
+            <button class="copy-btn" onclick="copyCode('code2')">Copy</button>
+            <pre id="code2">
+CASE
   WHEN Priority = "High" THEN 3
   WHEN Priority = "Medium" THEN 2
   WHEN Priority = "Low" THEN 1
   ELSE 0
-END</pre>
-                </div>
-                <p>Click "SAVE"</p>
-            </div>
+END</pre
+            >
+          </div>
+          <p>Click "SAVE"</p>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 11</span>Create Weighted Satisfaction Field</h3>
-                <p>"ADD A FIELD"</p>
-                <p>Name: <strong>"Weighted Satisfaction"</strong></p>
-                <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode('code3')">Copy</button>
-                    <pre id="code3">Citizen Satisfaction * Priority Weight</pre>
-                </div>
-                <p>Click "SAVE"</p>
-                <p><em>Close the data source editor - you'll see these new fields in your field list!</em></p>
-            </div>
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 12</span>Create Weighted Satisfaction
+            Field
+          </h3>
+          <p>"ADD A FIELD"</p>
+          <p>Name: <strong>"Weighted Satisfaction"</strong></p>
+          <div class="code-container">
+            <button class="copy-btn" onclick="copyCode('code3')">Copy</button>
+            <pre id="code3">Citizen Satisfaction * Priority Weight</pre>
+          </div>
+          <p>Click "SAVE"</p>
+          <p>
+            <em
+              >Close the data source editor - you'll see these new fields in
+              your field list!</em
+            >
+          </p>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 12</span>Use Your Calculated Fields</h3>
-                <p>Create a new bar chart</p>
-                <ul class="checklist">
-                    <li>Dimension: "Efficiency Score"</li>
-                    <li>Metric: "Record Count"</li>
-                    <li>Title: "Service Efficiency Distribution"</li>
-                </ul>
-            </div>
-        </section>
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 13</span>Use Your Calculated Fields
+          </h3>
+          <p>Create a new bar chart</p>
+          <ul class="checklist">
+            <li>Dimension: "Efficiency Score"</li>
+            <li>Metric: "Record Count"</li>
+            <li>Title: "Service Efficiency Distribution"</li>
+          </ul>
+        </div>
+      </section>
 
-        <section id="phase4">
-            <h2>Phase 4: Connect and Blend Budget Data</h2>
-            
-            <div class="step-card">
-                <h3><span class="step-number">Step 13</span>Add Budget Data Source</h3>
-                <ul class="checklist">
-                    <li>Click "Resource" → "Manage blended data"</li>
-                    <li>Click "Add a data source"</li>
-                    <li>Select "Google Sheets"</li>
-                    <li>Choose your <strong>"LGU_Budget"</strong> sheet</li>
-                    <li>Click "ADD" → "ADD TO REPORT"</li>
-                </ul>
-            </div>
+      <section id="phase4">
+        <h2>Phase 4: Connect and Blend Budget Data</h2>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 14</span>Create Data Blend</h3>
-                <p>In "Manage blended data", click "Create Blend"</p>
-                <div style="display:flex; gap:20px;">
-                    <div style="flex:1">
-                        <strong>Left Table</strong><br>
-                        Select "LGU_Service_Requests"<br>
-                        <em>Metrics:</em> Record Count, Average Completion Days
-                    </div>
-                    <div style="flex:1">
-                        <strong>Right Table</strong><br>
-                        Select "LGU_Budget"<br>
-                        <em>Metrics:</em> Budget Allocated, Budget Spent
-                    </div>
-                </div>
-                <p><strong>Join keys:</strong> Click "Add key" → Select "Department" from both tables</p>
-                <p>Name this blend: <strong>"Department Performance"</strong></p>
-                <p>Click "SAVE"</p>
-            </div>
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 14</span>Add Budget Data Source
+          </h3>
+          <ul class="checklist">
+            <li>Click "Resource" → "Manage blended data"</li>
+            <li>Click "Add a data source"</li>
+            <li>Select "Google Sheets"</li>
+            <li>Choose your <strong>"LGU_Budget"</strong> sheet</li>
+            <li>Click "ADD" → "ADD TO REPORT"</li>
+          </ul>
+        </div>
 
-            <div class="step-card">
-                <h3><span class="step-number">Step 15</span>Create Blended Chart</h3>
-                <ul class="checklist">
-                    <li>Click "Add a chart" → "Combo chart"</li>
-                    <li>Place it below your existing charts</li>
-                    <li>Data source: Select "Department Performance" (your new blend)</li>
-                    <li>Dimension: "Department"</li>
-                    <li>Metrics:
-                        <ul>
-                            <li>Budget Allocated (Bar)</li>
-                            <li>Budget Spent (Bar)</li>
-                            <li>Record Count (Line, secondary axis)</li>
-                        </ul>
-                    </li>
-                    <li>Style:
-                        <ul>
-                            <li>Title: "Budget vs Service Volume by Department"</li>
-                            <li>Dual axis: ON</li>
-                        </ul>
-                    </li>
-                </ul>
+        <div class="step-card">
+          <h3><span class="step-number">Step 15</span>Create Data Blend</h3>
+          <p>In "Manage blended data", click "Create Blend"</p>
+          <div style="display: flex; gap: 20px">
+            <div style="flex: 1">
+              <strong>Left Table</strong><br />
+              Select "LGU_Service_Requests"<br />
+              <em>Metrics:</em> Record Count, Average Completion Days
             </div>
-        </section>
+            <div style="flex: 1">
+              <strong>Right Table</strong><br />
+              Select "LGU_Budget"<br />
+              <em>Metrics:</em> Budget Allocated, Budget Spent
+            </div>
+          </div>
+          <p>
+            <strong>Join keys:</strong> Click "Add key" → Select "Department"
+            from both tables
+          </p>
+          <p>Name this blend: <strong>"Department Performance"</strong></p>
+          <p>Click "SAVE"</p>
+        </div>
 
+        <div class="step-card">
+          <h3><span class="step-number">Step 16</span>Create Blended Chart</h3>
+          <ul class="checklist">
+            <li>Click "Add a chart" → "Combo chart"</li>
+            <li>Place it below your existing charts</li>
+            <li>
+              Data source: Select "Department Performance" (your new blend)
+            </li>
+            <li>Dimension: "Department"</li>
+            <li>
+              Metrics:
+              <ul>
+                <li>Budget Allocated (Bar)</li>
+                <li>Budget Spent (Bar)</li>
+                <li>Record Count (Line, secondary axis)</li>
+              </ul>
+            </li>
+            <li>
+              Style:
+              <ul>
+                <li>Title: "Budget vs Service Volume by Department"</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
 
     <script>
-        function copyCode(id) {
-            const code = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                alert("Formula copied to clipboard!");
-            });
-        }
+      function copyCode(id) {
+        const code = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          alert("Formula copied to clipboard!");
+        });
+      }
     </script>
-</body>
+  </body>
 </html>
