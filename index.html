@@ -181,6 +181,7 @@
         <li><a href="#phase2">Phase 2: Interactive Filters</a></li>
         <li><a href="#phase3">Phase 3: Calculated Fields</a></li>
         <li><a href="#phase4">Phase 4: Blending Data</a></li>
+        <li><a href="#phase5">Phase 5: Parameters</a></li>
       </ul>
     </nav>
 
@@ -571,6 +572,200 @@ END</pre
               </ul>
             </li>
           </ul>
+        </div>
+      </section>
+
+      <section id="phase5">
+        <h2>Phase 5: Parameters</h2>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 17</span>Create the Budget Range
+            Parameter
+          </h3>
+          <ul class="checklist">
+            <li>In Looker Studio → Data Panel</li>
+            <li>Choose Data Source</li>
+            <li>Click <strong>Add a parameter</strong></li>
+            <li>
+              Set properties:
+              <ul>
+                <li><strong>Name:</strong> BudgetRange</li>
+                <li><strong>Data type:</strong> Text</li>
+                <li><strong>Permitted values:</strong> List of values</li>
+              </ul>
+            </li>
+            <li>
+              Add your ranges:
+              <ul>
+                <li>300000-500000</li>
+                <li>500000-650000</li>
+                <li>650000-900000</li>
+                <li><em>(Add more if needed)</em></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 18</span>Create a Control (Dropdown)
+          </h3>
+          <ul class="checklist">
+            <li>Click <strong>Add a control</strong></li>
+            <li>Choose <strong>Dropdown</strong></li>
+            <li>
+              Set Control field → your parameter <strong>BudgetRange</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 19</span>Create a Calculated Field to
+            Interpret the Range
+          </h3>
+          <p>
+            In Looker Studio → Data Panel, Click <strong>Add a field</strong>
+          </p>
+          <p>Name it: <strong>BudgetFilter</strong></p>
+          <p>Paste this formula:</p>
+          <div class="code-container">
+            <button class="copy-btn" onclick="copyCode('code4')">Copy</button>
+            <pre id="code4">
+CASE 
+  WHEN BudgetRange = "300000-500000" THEN Budget Allocated >= 300000 AND Budget Allocated < 500000
+  WHEN BudgetRange = "500000-650000" THEN Budget Allocated >= 500000 AND Budget Allocated < 650000
+  WHEN BudgetRange = "650000-900000" THEN Budget Allocated >= 650000 AND Budget Allocated < 900000
+END</pre
+            >
+          </div>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 20</span>Apply the Filter to the
+            Table
+          </h3>
+          <ul class="checklist">
+            <li>Click the Pivot table or normal table</li>
+            <li>On the right panel → <strong>Filter</strong></li>
+            <li>Click <strong>Add a filter</strong> → Create a filter</li>
+            <li>Name: <strong>Show Selected Budget Range</strong></li>
+            <li>Condition: Include → <strong>BudgetFilter</strong> = True</li>
+            <li>Click Save</li>
+          </ul>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 21</span>Create New Parameters
+            (Dynamic Input)
+          </h3>
+          <ul class="checklist">
+            <li>In Looker Studio → Data Panel → Data Source</li>
+            <li>Click <strong>Add a parameter</strong></li>
+            <li>
+              Set:
+              <ul>
+                <li><strong>Name:</strong> MinBudget</li>
+                <li><strong>Data type:</strong> Number</li>
+                <li><strong>Permitted values:</strong> Any Value</li>
+              </ul>
+            </li>
+            <li>
+              Repeat for MaxBudget:
+              <ul>
+                <li><strong>Name:</strong> MaxBudget</li>
+                <li><strong>Data type:</strong> Number</li>
+                <li><strong>Permitted values:</strong> Any Value</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 22</span>Add Parameter Controls to
+            the Report
+          </h3>
+          <ul class="checklist">
+            <li>Click <strong>Add a control</strong></li>
+            <li>Choose <strong>Input Box</strong></li>
+            <li>
+              Set Control field → your parameter <strong>MinBudget</strong>
+            </li>
+            <li>
+              Repeat for <strong>MaxBudget</strong> (Add control → Input Box →
+              MaxBudget)
+            </li>
+          </ul>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 23</span>Create a Dynamic Range
+            Filter
+          </h3>
+          <p>
+            In Looker Studio → Data Panel → Click <strong>Add a field</strong>
+          </p>
+          <p>Name it: <strong>InputFilter</strong></p>
+          <p>Paste this formula:</p>
+          <div class="code-container">
+            <button class="copy-btn" onclick="copyCode('code5')">Copy</button>
+            <pre id="code5">
+(MinBudget IS NULL OR Budget Allocated >= MinBudget)
+AND
+(MaxBudget IS NULL OR Budget Allocated <= MaxBudget)</pre
+            >
+          </div>
+        </div>
+
+        <div class="step-card">
+          <h3>
+            <span class="step-number">Step 24</span>Apply the Filter to the
+            Table
+          </h3>
+          <ul class="checklist">
+            <li>Click the Pivot table or normal table</li>
+            <li>On the right panel → <strong>Filter</strong></li>
+            <li>Click <strong>Add a filter</strong> → Create a filter</li>
+            <li>Name: <strong>BudgetRangeInputFilter</strong></li>
+            <li>Condition: Include → <strong>InputFilter</strong> = True</li>
+            <li>Click Save</li>
+          </ul>
+        </div>
+      </section>
+      <section id="conclusion" style="padding-bottom: 50px">
+        <hr style="border: 0; border-top: 1px solid #e1e4e8; margin: 50px 0" />
+
+        <div style="text-align: center">
+          <h2 style="border: none; font-size: 2rem; color: #333">
+            🎉 Dashboard Demo Complete!
+          </h2>
+          <p style="font-size: 1.1rem; color: #666; margin-bottom: 30px">
+            You have successfully connected data, built charts, blended budget
+            sources, and created advanced parameter filters.
+          </p>
+
+          <div
+            class="step-card"
+            style="
+              text-align: left;
+              max-width: 600px;
+              margin: 0 auto;
+              border-left: 5px solid #34a853;
+            "
+          >
+            <h3 style="margin-top: 0; color: #34a853">Next Steps</h3>
+            <ul class="checklist">
+              <li>
+                Click the <strong>"View"</strong> button in the top right corner
+                to test the final user experience.
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>
